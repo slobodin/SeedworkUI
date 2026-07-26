@@ -23,6 +23,7 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintCosmetic)
     static void ResumeInputForPlayer(APlayerController* playerController, FName suspendToken);
 
+    /** Removes the widget from whichever layer of its owning player's layout it was pushed to. Safe to call with an already destroyed widget. */
     UFUNCTION(BlueprintCallable, BlueprintCosmetic)
     static void PopContentFromLayer(UActivatableWidget* activatableWidget);
 
