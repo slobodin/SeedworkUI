@@ -32,7 +32,7 @@ public:
     virtual void Activate() override;
     virtual void Cancel() override;
 
-    UFUNCTION(BlueprintCallable, BlueprintCosmetic, meta = (WorldContext = "WorldContextObject", BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, BlueprintCosmetic, meta = (BlueprintInternalUseOnly = "true"))
     static UAsyncAction_PushContentToLayerForPlayer* PushContentToLayerForPlayer(
         APlayerController* owningPlayer, UPARAM(meta = (AllowAbstract = false)) TSoftClassPtr<UActivatableWidget> widgetClass, FGameplayTag layerName, bool bSuspendInputUntilComplete = true);
 

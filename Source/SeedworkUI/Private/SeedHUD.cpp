@@ -16,7 +16,8 @@ void ASeedHUD::PostInitializeComponents()
         check(GetOwningPlayerController());
 
         RootLayout = CreateWidget<UPrimaryGameLayout>(GetOwningPlayerController(), PrimaryGameLayoutClass);
-        RootLayout->AddToViewport(0);
+        RootLayout->SetPlayerContext(FLocalPlayerContext(GetOwningPlayerController()));
+        RootLayout->AddToPlayerScreen(0);
 
 #if WITH_EDITOR
         if (GIsEditor && GetOwningPlayerController()->IsPrimaryPlayer())
