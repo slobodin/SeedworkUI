@@ -21,6 +21,7 @@ public class SeedworkUI : ModuleRules
             "Slate",
             "UMG",
             "CommonUI",
+            "CommonInput",
             "GameplayTags"
         ]);
     }
