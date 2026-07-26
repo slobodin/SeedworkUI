@@ -17,6 +17,11 @@ public class SeedworkUI : ModuleRules
         [
             "CoreUObject",
             "Engine",
+            "SlateCore",
+            "Slate",
+            "UMG",
+            "CommonUI",
+            "GameplayTags"
         ]);
     }
 }
