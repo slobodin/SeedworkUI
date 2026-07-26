@@ -12,7 +12,7 @@ void UAsyncAction_PushContentToLayerForPlayer::Activate()
     {
         TWeakObjectPtr<UAsyncAction_PushContentToLayerForPlayer> weakThis = this;
 
-        StreamingHandle = rootLayout->PushWidgetToLayerStackAsync(LayerName, bSuspendInputUntilComplete, WidgetClass, [weakThis](EAsyncWidgetLayerState state, UActivatableWidget* widget)
+        auto streamingHandle = rootLayout->PushWidgetToLayerStackAsync(LayerName, bSuspendInputUntilComplete, WidgetClass, [weakThis](EAsyncWidgetLayerState state, UActivatableWidget* widget)
         {
             if (weakThis.IsValid())
             {
@@ -33,6 +33,14 @@ void UAsyncAction_PushContentToLayerForPlayer::Activate()
                 }
             }
         });
+
+        // The state callback can run before the push returns (for example when the widget class is
+        // already loaded), which destroys this action. Only take ownership of the handle if we
+        // survived that, otherwise we'd resurrect a request on an object that's already garbage.
+        if (!bIsReadyToDestroy)
+        {
+            StreamingHandle = MoveTemp(streamingHandle);
+        }
     }
     else
     {
@@ -72,6 +80,8 @@ UAsyncAction_PushContentToLayerForPlayer* UAsyncAction_PushContentToLayerForPlay
 
 void UAsyncAction_PushContentToLayerForPlayer::SetReadyToDestroy()
 {
+    bIsReadyToDestroy = true;
+
     Super::SetReadyToDestroy();
     StreamingHandle.Reset();
     MarkAsGarbage();

@@ -42,6 +42,7 @@ private:
     TSharedPtr<FStreamableHandle> StreamingHandle;
     FGameplayTag LayerName;
     bool bSuspendInputUntilComplete = false;
+    bool bIsReadyToDestroy = false;
 
     virtual void SetReadyToDestroy() override;
 };
