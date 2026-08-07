@@ -84,5 +84,8 @@ void UAsyncAction_PushContentToLayerForPlayer::SetReadyToDestroy()
 
     Super::SetReadyToDestroy();
     StreamingHandle.Reset();
-    MarkAsGarbage();
+    if (!IsEngineExitRequested())
+    {
+        MarkAsGarbage();
+    }
 }

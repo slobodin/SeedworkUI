@@ -86,5 +86,8 @@ void UAsyncAction_CreateWidget::SetReadyToDestroy()
 {
     Super::SetReadyToDestroy();
     StreamingHandle.Reset();
-    MarkAsGarbage();
+    if (!IsEngineExitRequested())
+    {
+        MarkAsGarbage();
+    }
 }
